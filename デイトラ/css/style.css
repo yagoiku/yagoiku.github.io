@@ -1,0 +1,263 @@
+h1,h2,h3,h4,h5,h6,p,a,li {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  line-height: 1.2;
+}
+ 
+
+
+.header {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  font-size: 18px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-right: 50px;
+  margin-left: 50px;
+
+}
+
+h2 {
+  font-size: 25px;
+  text-align: center;
+}
+
+.nav  {
+  display: flex;
+}
+  
+.nav li {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+    
+.main {
+  margin-right: 90px;
+  margin-left: 90px;
+}  
+
+
+.main-img {
+  position: relative;
+  background-image:url(../img/main-vsual-nontitle.png) ;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  height: auto;
+  padding: 150px 50px;
+  align-items: center;
+}
+
+.main-img h2 {
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.main-img_p {
+  padding-top: 20px;
+
+}
+
+.main-img p {
+  text-align: center;
+  font-weight: bold;
+  
+}
+
+
+
+
+
+.main-text {
+  text-align: center;
+  font-size: 25px;
+  padding: 50px;
+  font-weight: bold;
+
+}
+
+.main-img_text {
+  display: flex;
+}
+
+.main-coment p {
+  line-height: 1.5;
+  padding: 0 20px;
+}
+
+.main img {
+  width: 40%;
+  padding: 50px;
+}
+
+.corse-img {
+  display: flex;
+  margin-right: 90px;
+  margin-left: 90px;
+  text-align: center;  
+}
+
+.corse-img img {
+  width: 90%;
+  text-align: center;
+}
+
+.corse {
+  text-align: center;
+
+}
+
+.corse-title {
+padding: 50px;
+font-weight: bold;
+
+}
+
+.corse-img p {
+  text-align: center;
+
+}  
+
+.contact {
+  text-align: center;
+  margin: 50px;
+}
+
+.contact-text {
+  text-align: center;
+  margin: 20px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.contact p {
+  margin-bottom: 5px;
+}
+
+.mail {
+  width: 500px;
+  height: 30px;
+}
+
+.submit {
+  background-color: orange;
+  color: aliceblue;
+  width: 300px;
+  height: 50px;
+  font-size: 20px;
+  margin: 20px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 960px) {
+  
+
+
+   .header {
+     display: block;
+     width:100%;
+     padding: 0%;
+     text-align: center;
+     margin: 0 auto;
+
+   }
+
+
+
+   .header p {
+     font-size: 20px;
+     text-align: center;
+     margin: 10px;
+  
+   }
+
+   .nav {
+     font-size: 12px;
+     text-align: center;
+     margin: 10px;
+   }
+
+  
+   
+
+   .corse {
+     text-align: center;
+   }
+
+   .corse-img {
+     display: block;
+   }
+
+   
+    
+
+   .submit {
+     width: 220px;
+   }
+
+   .main {
+     margin: 0 auto;
+   }
+
+   .main img{
+     width: 300px;
+
+
+   }
+   .main-text {
+    font-size: 25px;
+    text-align: center;
+  }
+
+
+   .main-img {
+   margin: 0px;
+   width: 100％px;
+   text-align: center;  
+   position: relative;
+   background-image:url(../img/main-vsual-nontitle.png) ;
+   background-size: cover;
+   background-position: center;
+   position: relative;
+   height: auto;  
+  }
+
+  .main-img h2 {
+    font-size: 20px;
+  }
+  .main-img p {
+    font-size: 12px;
+    font-weight: unset;
+  }
+
+  .main-img_text {
+    display: block;
+    margin: 0;
+    padding: 0%;
+    font-size: 12px;
+  }
+
+  .main-coment {
+    width: 300px;
+    text-align: center;
+  }
+
+  .corse-img img{
+    width: 300px;
+   
+    margin-top: 20px;
+    align-items: center;
+  }
+
+  .corse {
+    padding-left: 0px;
+    margin-left: 0px;
+  }
+
+  .mail {
+    width: 100%;
+  }
+}
