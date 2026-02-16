@@ -1,40 +1,180 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <title>WCB game cafe</title>
-  <meta name="description" content="ゲームができるカフェ">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <title>勤怠管理ツール</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="app-header">
+        <div>
+          <h1>勤怠管理ツール</h1>
+          <p class="app-subtitle">ローカル保存型・シンプル打刻</p>
+        </div>
+        <div class="header-right">
+          <div class="editor-wrapper">
+            <label class="inline-label editor-label">
+              編集者名
+              <input
+                id="editorName"
+                class="editor-input"
+                type="text"
+                placeholder="例）山田"
+              />
+            </label>
+          </div>
+          <div class="now-datetime">
+            <span id="todayText"></span>
+            <span id="nowTime" class="now-time"></span>
+          </div>
+        </div>
+      </header>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/styles.css">
+      <main class="app-main">
+        <section class="card">
+          <h2>本日の打刻</h2>
+          <div class="today-info">
+            <div class="today-label">日付</div>
+            <div id="todayDate" class="today-value"></div>
+          </div>
 
-  <link rel="icon" type="image/png" href="images/favicon.png">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+          <div class="stamp-status">
+            <div class="status-item">
+              <span class="status-label">出勤</span>
+              <span id="statusStart" class="status-value status-empty">--:--</span>
+            </div>
+            <div class="status-item">
+              <span class="status-label">退勤</span>
+              <span id="statusEnd" class="status-value status-empty">--:--</span>
+            </div>
+            <div class="status-item">
+              <span class="status-label">休憩</span>
+              <span id="statusBreak" class="status-value status-empty">0分</span>
+            </div>
+            <div class="status-item">
+              <span class="status-label">実働</span>
+              <span id="statusWork" class="status-value status-empty">0時間0分</span>
+            </div>
+          </div>
 
- 
-</head>
-<body>
-  <div id="home" class="big-bg">
+          <div class="stamp-buttons">
+            <button id="btnStart" class="btn primary">出勤</button>
+            <button id="btnBreakStart" class="btn">休憩開始</button>
+            <button id="btnBreakEnd" class="btn">休憩終了</button>
+            <button id="btnEnd" class="btn danger">退勤</button>
+          </div>
 
-    <header class="page-header wrapper">
-      <h1><a href="index.html"><img class="logo" src="images/logo.svg" alt="game cafe ホーム"></a></h1>
-      <nav>
-        <ul class="main-nav">
-          <li><a href="news.html">NEWS</a></li>
-          <li><a href="menu.html">MENU</a></li>
-          <li><a href="contact.html">CONTACT</a></li>
-        </ul>
-      </nav>
-      
-    </header>
-    
-    <div class="home-content wrapper">
-      <h2 class="page-title">We'll Make Your Day</h2>
-      <p>おしゃれなカフェでくつろぎませんか？人気のゲームタイトルが目白押し！！</p>
-      <a class="button" href="menu.html">メニューを見る</a>
+          <label class="note-label" for="noteInput">本日のメモ</label>
+          <textarea
+            id="noteInput"
+            class="note-input"
+            rows="2"
+            placeholder="在宅勤務 / 外出 など自由にメモできます"
+          ></textarea>
+        </section>
+
+        <section class="card">
+          <div class="card-header">
+            <h2>勤怠一覧</h2>
+            <div class="card-actions">
+              <label class="inline-label">
+                月別表示
+                <input type="month" id="monthFilter" />
+              </label>
+              <button id="btnClearFilter" class="btn ghost small">すべて表示</button>
+              <button id="btnExport" class="btn outline small">CSVダウンロード</button>
+            </div>
+          </div>
+
+          <div class="table-wrapper">
+            <table class="attendance-table">
+              <thead>
+                <tr>
+                  <th>日付</th>
+                  <th>曜日</th>
+                  <th>出勤</th>
+                  <th>退勤</th>
+                  <th>休憩</th>
+                  <th>実働</th>
+                  <th>メモ</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="attendanceBody">
+                <tr class="empty-row">
+                  <td colspan="8">まだ勤怠データがありません</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div id="editPanel" class="edit-panel" hidden>
+            <div class="edit-panel-header">
+              <span class="edit-panel-title">選択中の勤怠を編集</span>
+              <span id="editTargetLabel" class="edit-panel-target"></span>
+            </div>
+            <div class="edit-panel-grid">
+              <label class="edit-field">
+                <span class="edit-field-label">日付</span>
+                <input type="date" id="editDate" />
+              </label>
+              <label class="edit-field">
+                <span class="edit-field-label">出勤</span>
+                <input type="time" id="editStartTime" />
+              </label>
+              <label class="edit-field">
+                <span class="edit-field-label">退勤</span>
+                <input type="time" id="editEndTime" />
+              </label>
+              <label class="edit-field">
+                <span class="edit-field-label">休憩合計（分）</span>
+                <input
+                  type="number"
+                  id="editBreakMinutes"
+                  min="0"
+                  step="1"
+                />
+              </label>
+            </div>
+            <label class="edit-field edit-note-field">
+              <span class="edit-field-label">メモ</span>
+              <textarea id="editNote" rows="2"></textarea>
+            </label>
+            <div class="edit-panel-footer">
+              <button
+                id="btnEditCancel"
+                class="btn ghost small"
+                type="button"
+              >
+                キャンセル
+              </button>
+              <button
+                id="btnEditSave"
+                class="btn outline small"
+                type="button"
+              >
+                編集を保存
+              </button>
+            </div>
+            <p class="edit-panel-hint">
+              編集を保存すると、編集者名と時刻が履歴に残ります（行の「履歴」ボタンから確認できます）。
+            </p>
+          </div>
+        </section>
+      </main>
+
+      <footer class="app-footer">
+        <span>ブラウザのローカルストレージにのみ保存されます。</span>
+        <span>別の端末・ブラウザでは共有されません。</span>
+      </footer>
     </div>
-    
-  </div>
+
+    <script src="./app.js"></script>
   </body>
 </html>
+
